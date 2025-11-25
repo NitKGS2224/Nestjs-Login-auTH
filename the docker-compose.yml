@@ -1,0 +1,16 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+
+
+  mongo-express:
+    image: mongo-express
+  
+    ports:
+      - "27017:27017"
+   volumes:
+   - mongodb_data:/data/db
+
+   volumes:
+   mongodb_data:
