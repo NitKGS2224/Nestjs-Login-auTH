@@ -28,4 +28,9 @@ throw new ConflictException("Email is already exist.")
     async loginUser(email: string): Promise<User | null> {
     return this.userModel.findOne({ email }).exec();
   }
+async getUserById(id : string){
+  return await this.userModel.findOne({_id:id})
+ 
+}
+
 }

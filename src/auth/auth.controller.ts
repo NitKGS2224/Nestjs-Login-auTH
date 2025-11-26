@@ -1,12 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserRegisterDto } from 'src/dto/UserRegister.dto';
 import { UserLoginDto } from 'src/dto/UserLogin.dto';
-import { ProfileDto } from 'src/dto/Profile.dto';
+import { AuthGuard } from './auth.gaurds';
+import { UserService } from 'src/user/user.service';
+
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService : AuthService){}
+  constructor(private readonly authService : AuthService , private readonly userService : UserService){}
+
   @Post('register')
 
 async  register(@Body() userRegisterDto :UserRegisterDto) { 
@@ -18,10 +21,14 @@ async  register(@Body() userRegisterDto :UserRegisterDto) {
   async login(@Body() userLoginDto:UserLoginDto){
     return await this.authService.loginUser(userLoginDto)
   }
+@UseGuards(AuthGuard)
+  @Get("profile")
+  async  getProfile(@Request() req){
 
-@Post("profile")
-async profile(@Body()  userProfileDto:ProfileDto){
-return await this.authService.profileUser(userProfileDto)
-}
+    const userId = req.user._id
+    const  user  = await this.userService.getUserById(userId);
+    console.log(user)
+    return user 
+  }
 
 }
