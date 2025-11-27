@@ -12,7 +12,7 @@ import { JwtModule } from '@nestjs/jwt';
       , JwtModule.register({
       global: true,
       secret: "JWT_SECRET_KEY",
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '3660s' },
     }),
   ],
   providers: [AuthService]

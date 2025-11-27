@@ -15,6 +15,7 @@ return await this.userModel.create({
   email:userRegisterDto.email,
   password:userRegisterDto.password,
 })
+
     }catch(err){
 console.log(err)
    const e = err as{code?:number}
@@ -30,7 +31,6 @@ throw new ConflictException("Email is already exist.")
   }
 async getUserById(id : string){
   return await this.userModel.findOne({_id:id})
- 
 }
 
 }

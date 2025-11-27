@@ -25,7 +25,7 @@ async  register(@Body() userRegisterDto :UserRegisterDto) {
   @Get("profile")
   async  getProfile(@Request() req){
 
-    const userId = req.user._id
+    const userId = req.user.sub
     const  user  = await this.userService.getUserById(userId);
     console.log(user)
     return user 
